@@ -1,6 +1,11 @@
 package sample;
 
+import javafx.fxml.FXMLLoader;
+
+import javax.swing.*;
+import java.io.IOException;
 import java.sql.*;
+import java.lang.String;
 
 public class DBConnect {
     private Connection con;
@@ -44,13 +49,26 @@ public class DBConnect {
         }
     }
     public void checkUser(String username,String password) throws SQLException {
-        ps = con.prepareStatement("SELECT * FROM sys.info WHERE username=? AND password=?");
-        ps.setString(1,username);
-        ps.setString(2,password);
+        try{
+            ps = con.prepareStatement("SELECT * FROM sys.info WHERE username=? AND password=?");
+            ps.setString(1,username);
+            ps.setString(2,password);
 
-        //String query = "SELECT * FROM sys.info WHERE username='" + username + "' AND password='" + password + "'";
+            rs = ps.executeQuery();
 
-        rs = ps.executeQuery();
-        System.out.println("Hi");
+            if(!rs.next()) {
+                JOptionPane.showMessageDialog(null,"Wrong username or password. Please try again.");
+            }
+        }
+        catch(SQLException sql){
+            System.out.println(sql);
+        }
+        finally {
+            con.close();
+            ps.close();
+            rs.close();
+            st.close();
+        }
     }
+
 }
