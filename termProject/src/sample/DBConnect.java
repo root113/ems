@@ -1,9 +1,5 @@
 package sample;
 
-import javafx.fxml.FXMLLoader;
-
-import javax.swing.*;
-import java.io.IOException;
 import java.sql.*;
 import java.lang.String;
 
@@ -48,20 +44,24 @@ public class DBConnect {
             System.out.println("Error: " + ex);
         }
     }
-    public void checkUser(String username,String password) throws SQLException {
+    public boolean checkUser(String username, String password, String privilage) throws SQLException {
         try{
-            ps = con.prepareStatement("SELECT * FROM sys.info WHERE username=? AND password=?");
+
+            ps = this.con.prepareStatement("SELECT * FROM sys.info WHERE username=? AND password=? AND privilages=?");
             ps.setString(1,username);
             ps.setString(2,password);
+            ps.setString(3,privilage);
 
             rs = ps.executeQuery();
 
-            if(!rs.next()) {
-                JOptionPane.showMessageDialog(null,"Wrong username or password. Please try again.");
-            }
+            if(!rs.next())
+                return false;
+            else
+                return true;
         }
         catch(SQLException sql){
-            System.out.println(sql);
+            sql.getCause().printStackTrace();
+            return false;
         }
         finally {
             con.close();
@@ -70,5 +70,4 @@ public class DBConnect {
             st.close();
         }
     }
-
 }
