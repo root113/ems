@@ -121,6 +121,8 @@ public class UpdateController implements Initializable {
             ps.setString(10,this.tfDomain.getText());
             ps.setInt(11,Integer.parseInt(this.tfID.getText()));
 
+            ps.execute();
+
             JOptionPane.showMessageDialog(null,"You have successfully made changes in database!");
         }
         catch (SQLException sql){

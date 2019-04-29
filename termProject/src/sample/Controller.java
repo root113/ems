@@ -9,13 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import menu.menuController;
+import register.RegisterController;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -34,6 +32,8 @@ public class Controller implements Initializable {
     private ComboBox privilageBox;
     @FXML
     private Button button1;
+    @FXML
+    private Label label1;
 
     private DBConnect db;
 
@@ -96,6 +96,27 @@ public class Controller implements Initializable {
             empStage.setTitle("Employee Menu");
             empStage.setResizable(false);
             empStage.show();
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void register(){
+        Stage stage = (Stage)this.label1.getScene().getWindow();
+        stage.close();
+
+        try{
+            Stage registerStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = (Pane) loader.load(getClass().getResource("/register/register.fxml").openStream());
+            RegisterController registerController = (RegisterController) loader.getController();
+            Scene scene = new Scene(root);
+            registerStage.setScene(scene);
+            registerStage.setTitle("Register");
+            registerStage.setResizable(false);
+            registerStage.show();
         }
         catch (IOException ex){
             ex.printStackTrace();

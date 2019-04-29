@@ -4,13 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import menu.empData;
 import sample.DBConnect;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,6 +53,10 @@ public class EmpMenuController implements Initializable {
     private TableColumn<empData,String> columnUsername;
     @FXML
     private TableColumn<empData,String> columnPrivilage;
+    @FXML
+    private Button btRequest;
+    @FXML
+    private Button btChange;
 
     private DBConnect db;
     private PreparedStatement ps;
@@ -101,5 +112,47 @@ public class EmpMenuController implements Initializable {
 
         this.empDataTableView.setItems(null);
         this.empDataTableView.setItems(this.data);
+    }
+
+    @FXML
+    public void requestOffDays(ActionEvent event){
+        Stage stage = (Stage)this.btRequest.getScene().getWindow();
+        stage.close();
+
+        try{
+            Stage requestStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = (Pane)loader.load(getClass().getResource("request.fxml").openStream());
+            RequestController requestController = (RequestController) loader.getController();
+            Scene scene = new Scene(root);
+            requestStage.setScene(scene);
+            requestStage.setTitle("Request Off Days");
+            requestStage.setResizable(false);
+            requestStage.show();
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void changePassword(ActionEvent event){
+        Stage stage = (Stage) this.btChange.getScene().getWindow();
+        stage.close();
+
+        try{
+            Stage changeStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = (Pane) loader.load(getClass().getResource("change.fxml").openStream());
+            ChangeController changeController = (ChangeController) loader.getController();
+            Scene scene = new Scene(root);
+            changeStage.setScene(scene);
+            changeStage.setTitle("Change Password");
+            changeStage.setResizable(false);
+            changeStage.show();
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 }
