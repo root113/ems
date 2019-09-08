@@ -43,7 +43,7 @@ public class DBConnect {
     public DBConnect(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?useUnicode=true&usetetimeCode=false&serverTimezone=Turkey","","");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?useUnicode=true&usetetimeCode=false&serverTimezone=***","***","***");
             st = con.createStatement();
         }
         catch(Exception ex){
