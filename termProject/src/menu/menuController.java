@@ -114,8 +114,8 @@ public class menuController implements Initializable {
         this.columnHired.setCellValueFactory(new PropertyValueFactory<empData,Integer>("yearOnWork"));
         this.columnOffdays.setCellValueFactory(new PropertyValueFactory<empData,Integer>("remainingOffDays"));
         this.columnDomain.setCellValueFactory(new PropertyValueFactory<empData,String>("domain"));
-        this.columnUsername.setCellValueFactory(new PropertyValueFactory<empData,String>("username"));
-        this.columnPrivilage.setCellValueFactory(new PropertyValueFactory<empData,String>("privilage"));
+        this.columnUsername.setCellValueFactory(new PropertyValueFactory<empData,String>("privilage"));
+        this.columnPrivilage.setCellValueFactory(new PropertyValueFactory<empData,String>("username"));
 
         this.empDataTableView.setItems(null);
         this.empDataTableView.setItems(this.data);
